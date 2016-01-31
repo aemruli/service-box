@@ -3,7 +3,7 @@ package org.springframework.cloud.service;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,16 +13,14 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class RestMoneyExchangeGateway implements MoneyExchangeGateway {
 
-    private final RestTemplate restTemplate = new RestTemplate();
-
     @Autowired
-    private LoadBalancerClient loadBalancerClient;
+    @LoadBalanced
+    private RestTemplate restTemplate;
 
     @Override
     @HystrixCommand(commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000"))
     public Double exchangeMoney(String currency, long amount) {
-        return loadBalancerClient.execute("CURRENCY", instance ->
-                restTemplate.getForObject(instance.getUri().toASCIIString() + "/rate/{currency}/{price}",
-                        Double.class, currency, amount));
+        return restTemplate.getForObject("http://CURRENCY/rate/{currency}/{price}",
+                Double.class, currency, amount);
     }
 }
