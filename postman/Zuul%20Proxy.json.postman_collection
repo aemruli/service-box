@@ -1,0 +1,35 @@
+{
+	"id": "93f8b3b5-2ce0-cdac-eb72-4f9173dd3e75",
+	"name": "Zuul Proxy",
+	"description": "",
+	"order": [
+		"51987fc1-b2fc-4aa0-55f9-b2b8811b03f7"
+	],
+	"folders": [],
+	"timestamp": 1454267204765,
+	"owner": 0,
+	"remoteLink": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "51987fc1-b2fc-4aa0-55f9-b2b8811b03f7",
+			"headers": "",
+			"url": "http://localhost:10002/price/CHF/200",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"collectionId": "93f8b3b5-2ce0-cdac-eb72-4f9173dd3e75",
+			"data": [],
+			"dataMode": "params",
+			"name": "Zuul Request",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1454267241462,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}
