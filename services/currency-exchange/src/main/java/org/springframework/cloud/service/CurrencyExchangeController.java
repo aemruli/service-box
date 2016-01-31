@@ -1,6 +1,8 @@
 package org.springframework.cloud.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +17,14 @@ import java.math.RoundingMode;
 @RestController
 public class CurrencyExchangeController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CurrencyExchangeController.class);
+
     private final RestTemplate restTemplate = new RestTemplate();
 
     @RequestMapping("/rate/{currency}/{value}")
     public BigDecimal exchange(@PathVariable String currency, @PathVariable BigDecimal value) throws InterruptedException {
+        LOGGER.trace("Received called with currency {} and value {}", currency, value);
+
         if (value.longValue() == 4200L) {
             Thread.sleep(10000);
         }
